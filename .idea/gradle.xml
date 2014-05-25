@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="GradleSettings">
+    <option name="linkedExternalProjectsSettings">
+      <GradleProjectSettings>
+        <option name="distributionType" value="DEFAULT_WRAPPED" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="modules">
+          <set>
+            <option value="C:\Development\AndroidStudioProjects\MyApplication2" />
+            <option value="C:\Development\AndroidStudioProjects\MyApplication2\app" />
+            <option value="C:\Development\AndroidStudioProjects\MyApplication2\libraries" />
+            <option value="C:\Development\AndroidStudioProjects\MyApplication2\libraries\SlidingMenu" />
+          </set>
+        </option>
+      </GradleProjectSettings>
+    </option>
+  </component>
+</project>
+
