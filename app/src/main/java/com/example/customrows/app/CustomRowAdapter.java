@@ -8,29 +8,27 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
-/**
- * Created by yaronn on 25/05/14.
- */
+
 public class CustomRowAdapter extends BaseAdapter {
     public String title;
     public String description;
     public Activity context;
     public LayoutInflater inflater;
 
-    public CustomRowAdapter(Activity context, String title,String description) {
+    public CustomRowAdapter(Activity context, String title) {
         super();
 
         this.context = context;
         this.title = title;
-        this.description = description;
 
         this.inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
     @Override
     public int getCount() {
-        return title.length();
+        return 1;
     }
 
     @Override
@@ -60,6 +58,7 @@ public class CustomRowAdapter extends BaseAdapter {
             holder.imgViewLogo = (ImageView)convertView.findViewById(R.id.imageView);
             holder.txtViewTitle = (TextView)convertView.findViewById(R.id.textView);
 
+
             convertView.setTag(holder);
         }else {
             holder = (ViewHolder)convertView.getTag();
@@ -68,6 +67,14 @@ public class CustomRowAdapter extends BaseAdapter {
         holder.imgViewLogo.setImageResource(R.drawable.ic_launcher);
         holder.txtViewTitle.setText(title);
 
+        convertView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Toast.makeText(context,title,Toast.LENGTH_SHORT).show();
+
+            }
+        });
         return convertView;
     }
 }

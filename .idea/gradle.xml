@@ -7,10 +7,10 @@
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
         <option name="modules">
           <set>
-            <option value="C:\Development\AndroidStudioProjects\MyApplication2" />
-            <option value="C:\Development\AndroidStudioProjects\MyApplication2\app" />
-            <option value="C:\Development\AndroidStudioProjects\MyApplication2\libraries" />
-            <option value="C:\Development\AndroidStudioProjects\MyApplication2\libraries\SlidingMenu" />
+            <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/app" />
+            <option value="$PROJECT_DIR$/libraries" />
+            <option value="$PROJECT_DIR$/libraries/SlidingMenu" />
           </set>
         </option>
       </GradleProjectSettings>

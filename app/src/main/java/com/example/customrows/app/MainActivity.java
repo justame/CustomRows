@@ -2,13 +2,22 @@ package com.example.customrows.app;
 
 
 import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
+
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.jeremyfeinstein.slidingmenu.lib.app.SlidingActivity;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class MainActivity extends SlidingActivity {
@@ -48,11 +57,24 @@ public class MainActivity extends SlidingActivity {
         super.onStart();
 
         ListView listView = (ListView)findViewById(R.id.listView);
-//        ArrayAdapter<CustomRowAdapter> customRowAdapterArrayAdapter = new ArrayAdapter<CustomRowAdapter>(this,android.R.layout.simple_list_item_1);
+        ArrayList<CustomRowAdapter> listRows = new ArrayList<CustomRowAdapter>();
+        for(int i=0;i< 20;i++){
+            CustomRowAdapter customRowAdapter = new CustomRowAdapter(this, "test" + i);
+            listRows.add(customRowAdapter);
+        }
 
-        CustomRowAdapter customRowAdapter = new CustomRowAdapter(this, "test1", "test1 desc");
-//        customRowAdapterArrayAdapter.add(customRowAdapter);
+        CustomRowArrayAdapter c = new CustomRowArrayAdapter(this,R.layout.custom_row,listRows);
+        listView.setAdapter(c);
 
-        listView.setAdapter(customRowAdapter);
+//
+//        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+//                CustomRowAdapter c = (CustomRowAdapter)adapterView.getAdapter();
+//
+//                Toast.makeText(getApplicationContext(),c.toString(),Toast.LENGTH_SHORT).show();
+//            }
+//        });
+
     }
 }
