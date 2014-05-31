@@ -3,6 +3,7 @@ package com.example.customrows.app;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -57,21 +58,11 @@ public class MainActivity extends SlidingActivity {
     protected void onStart() {
         super.onStart();
 
+    }
 
-
-//        CustomRowArrayAdapter c = new CustomRowArrayAdapter(this,R.layout.custom_row,listRows);
-//        listView.setAdapter(c);
-
-//
-//        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-//                CustomRowAdapter c = (CustomRowAdapter)adapterView.getAdapter();
-//
-//                Toast.makeText(getApplicationContext(),c.toString(),Toast.LENGTH_SHORT).show();
-//            }
-//        });
-
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
     }
 
     public void getFeeds(View v){

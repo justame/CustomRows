@@ -2,20 +2,22 @@
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:weightSum="1"
+    android:orientation="vertical">
 
     <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="131dp"
         android:id="@+id/imageView"
         android:src="@drawable/ic_launcher"
-        android:clickable="true"/>
+        android:clickable="true" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Large Text"
-        android:id="@+id/textView"
-        android:layout_gravity="center_horizontal" />
+        android:text="Temp"
+        android:textSize="20sp"
+        android:id="@+id/textView" />
 </LinearLayout>
