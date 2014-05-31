@@ -10,19 +10,19 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import javax.xml.transform.Result;
+
 
 public class CustomRowAdapter extends BaseAdapter {
-    public String title;
-    public String description;
-    public Activity context;
+    public FeedRow feedRow;
+    public Context context;
     public LayoutInflater inflater;
 
-    public CustomRowAdapter(Activity context, String title) {
+    public CustomRowAdapter(Context context, FeedRow feedRow) {
         super();
 
         this.context = context;
-        this.title = title;
-
+        this.feedRow = feedRow;
         this.inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
@@ -65,14 +65,12 @@ public class CustomRowAdapter extends BaseAdapter {
         }
 
         holder.imgViewLogo.setImageResource(R.drawable.ic_launcher);
-        holder.txtViewTitle.setText(title);
+        holder.txtViewTitle.setText(feedRow.message);
 
         convertView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                Toast.makeText(context,title,Toast.LENGTH_SHORT).show();
-
+            Toast.makeText(context,feedRow.message,Toast.LENGTH_SHORT).show();
             }
         });
         return convertView;

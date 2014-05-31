@@ -56,15 +56,10 @@ public class MainActivity extends SlidingActivity {
     protected void onStart() {
         super.onStart();
 
-        ListView listView = (ListView)findViewById(R.id.listView);
-        ArrayList<CustomRowAdapter> listRows = new ArrayList<CustomRowAdapter>();
-        for(int i=0;i< 20;i++){
-            CustomRowAdapter customRowAdapter = new CustomRowAdapter(this, "test" + i);
-            listRows.add(customRowAdapter);
-        }
 
-        CustomRowArrayAdapter c = new CustomRowArrayAdapter(this,R.layout.custom_row,listRows);
-        listView.setAdapter(c);
+
+//        CustomRowArrayAdapter c = new CustomRowArrayAdapter(this,R.layout.custom_row,listRows);
+//        listView.setAdapter(c);
 
 //
 //        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -75,6 +70,13 @@ public class MainActivity extends SlidingActivity {
 //                Toast.makeText(getApplicationContext(),c.toString(),Toast.LENGTH_SHORT).show();
 //            }
 //        });
+
+    }
+
+    public void getFeeds(View v){
+        ListView listView = (ListView)findViewById(R.id.listView);
+        FeedHandler feedHandler = new FeedHandler(this,listView);
+        feedHandler.execute(this);
 
     }
 }
