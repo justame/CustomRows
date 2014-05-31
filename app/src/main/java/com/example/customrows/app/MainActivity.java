@@ -1,25 +1,14 @@
 package com.example.customrows.app;
 
 
-import android.app.Activity;
-import android.content.Context;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
 
-import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.jeremyfeinstein.slidingmenu.lib.app.SlidingActivity;
-import com.nostra13.universalimageloader.core.ImageLoader;
-
-import java.util.ArrayList;
-import java.util.List;
 
 
 public class MainActivity extends SlidingActivity {
@@ -67,8 +56,8 @@ public class MainActivity extends SlidingActivity {
 
     public void getFeeds(View v){
         ListView listView = (ListView)findViewById(R.id.listView);
-        FeedHandler feedHandler = new FeedHandler(this,listView);
-        feedHandler.execute(this);
+        GetFeedsAsync getFeedsAsync = new GetFeedsAsync(this,listView);
+        getFeedsAsync.execute(this);
 
 
 

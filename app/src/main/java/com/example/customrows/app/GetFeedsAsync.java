@@ -27,11 +27,11 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-public class FeedHandler extends AsyncTask<Context,Integer, ArrayList<FeedRow>> {
+public class GetFeedsAsync extends AsyncTask<Context,Integer, ArrayList<FeedRow>> {
     Context context;
     ListView listView;
 
-    public  FeedHandler(Context context, ListView listView){
+    public GetFeedsAsync(Context context, ListView listView ){
         this.context = context;
         this.listView = listView;
     }
@@ -46,7 +46,18 @@ public class FeedHandler extends AsyncTask<Context,Integer, ArrayList<FeedRow>> 
         this.listView.setAdapter(customRowArrayAdapter);
     }
 
-    public static ArrayList<FeedRow> getFeeds(Context context) throws JSONException {
+    @Override
+    protected ArrayList<FeedRow> doInBackground(Context... contexts) {
+        ArrayList<FeedRow> feedRows = null;
+        try {
+            feedRows = getFeeds(contexts[0]);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return feedRows;
+    }
+
+    private static ArrayList<FeedRow> getFeeds(Context context) throws JSONException {
 
         // Create a new HttpClient and Post Header
         HttpClient httpclient = new DefaultHttpClient();
@@ -102,14 +113,4 @@ public class FeedHandler extends AsyncTask<Context,Integer, ArrayList<FeedRow>> 
         }
     }
 
-    @Override
-    protected ArrayList<FeedRow> doInBackground(Context... contexts) {
-        ArrayList<FeedRow> feedRows = null;
-        try {
-            feedRows = getFeeds(contexts[0]);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        return feedRows;
-    }
 }

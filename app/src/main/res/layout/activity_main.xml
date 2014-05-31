@@ -17,5 +17,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/listView"
-        android:layout_gravity="bottom" />
+        android:layout_gravity="bottom"
+        android:divider="#ff3253ff"
+        android:dividerHeight="3dp"
+        android:clipChildren="false"
+        android:footerDividersEnabled="false" />
 </LinearLayout>

@@ -4,11 +4,12 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:weightSum="1"
-    android:orientation="vertical">
+    android:orientation="horizontal"
+    android:padding="10dp">
 
     <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="131dp"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
         android:id="@+id/imageView"
         android:src="@drawable/ic_launcher"
         android:clickable="true" />
@@ -18,6 +19,6 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Temp"
-        android:textSize="20sp"
+        android:textSize="16sp"
         android:id="@+id/textView" />
 </LinearLayout>
