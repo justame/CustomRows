@@ -23,6 +23,8 @@ public class MainActivity extends SlidingActivity {
         setBehindContentView(R.layout.activity_menu);
 
         getSlidingMenu().setBehindOffset(100);
+        customRowArrayAdapter = new CustomRowArrayAdapter(getApplicationContext(),R.layout.custom_row, new ArrayList<CustomRowAdapter>());
+
     }
 
 
@@ -56,10 +58,10 @@ public class MainActivity extends SlidingActivity {
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
     }
+    CustomRowArrayAdapter customRowArrayAdapter = null;
 
     public void getFeeds(View v){
         final ListView listView = (ListView)findViewById(R.id.listView);
-        final CustomRowArrayAdapter customRowArrayAdapter = new CustomRowArrayAdapter(getApplicationContext(),R.layout.custom_row, new ArrayList<CustomRowAdapter>());
         listView.setAdapter(customRowArrayAdapter);
 
         final GetFeedsAsync getFeedsAsync = new GetFeedsAsync(this,listView, new GetFeedsAsync.GetFeedCallback(){
