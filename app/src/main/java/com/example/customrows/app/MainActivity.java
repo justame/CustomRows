@@ -59,16 +59,18 @@ public class MainActivity extends SlidingActivity {
 
     public void getFeeds(View v){
         final ListView listView = (ListView)findViewById(R.id.listView);
+        final CustomRowArrayAdapter customRowArrayAdapter = new CustomRowArrayAdapter(getApplicationContext(),R.layout.custom_row, new ArrayList<CustomRowAdapter>());
+        listView.setAdapter(customRowArrayAdapter);
+
         final GetFeedsAsync getFeedsAsync = new GetFeedsAsync(this,listView, new GetFeedsAsync.GetFeedCallback(){
             @Override
             public void onPostExecute(ArrayList<FeedRow> feedRows) {
                 ArrayList<CustomRowAdapter> listRows = new ArrayList<CustomRowAdapter>();
-                CustomRowArrayAdapter customRowArrayAdapter = new CustomRowArrayAdapter(getApplicationContext(),R.layout.custom_row, new ArrayList<CustomRowAdapter>());
                 for (FeedRow feedRow : feedRows){
                     CustomRowAdapter customRowAdapter = new CustomRowAdapter(getApplicationContext(),feedRow);
                     customRowArrayAdapter.add(customRowAdapter);
                 }
-                listView.setAdapter(customRowArrayAdapter);
+                customRowArrayAdapter.notifyDataSetChanged();
             }
         }
         );
