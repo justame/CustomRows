@@ -30,20 +30,21 @@ import java.util.List;
 public class GetFeedsAsync extends AsyncTask<Context,Integer, ArrayList<FeedRow>> {
     Context context;
     ListView listView;
+    GetFeedCallback getFeedCallback;
 
-    public GetFeedsAsync(Context context, ListView listView ){
+    public interface GetFeedCallback{
+        void onPostExecute(ArrayList<FeedRow> feedRows);
+    }
+
+    public GetFeedsAsync(Context context, ListView listView, GetFeedCallback getFeedCallback){
         this.context = context;
         this.listView = listView;
+        this.getFeedCallback = getFeedCallback;
     }
     @Override
     protected void onPostExecute(ArrayList<FeedRow> feedRows) {
-        ArrayList<CustomRowAdapter> listRows = new ArrayList<CustomRowAdapter>();
-        CustomRowArrayAdapter customRowArrayAdapter = new CustomRowArrayAdapter(this.context,R.layout.custom_row, new ArrayList<CustomRowAdapter>());
-        for (FeedRow feedRow : feedRows){
-            CustomRowAdapter customRowAdapter = new CustomRowAdapter(this.context,feedRow);
-            customRowArrayAdapter.add(customRowAdapter);
-        }
-        this.listView.setAdapter(customRowArrayAdapter);
+        this.getFeedCallback.onPostExecute(feedRows);
+
     }
 
     @Override

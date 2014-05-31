@@ -3,7 +3,6 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:weightSum="1"
     android:orientation="horizontal"
     android:padding="10dp">
 
@@ -17,8 +16,10 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:maxHeight="200dp"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Temp"
         android:textSize="16sp"
-        android:id="@+id/textView" />
+        android:id="@+id/textView"
+        android:textColor="@android:color/black"/>
 </LinearLayout>
