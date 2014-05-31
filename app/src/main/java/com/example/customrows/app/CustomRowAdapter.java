@@ -10,6 +10,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.nostra13.universalimageloader.core.ImageLoader;
+
 import javax.xml.transform.Result;
 
 
@@ -64,7 +66,9 @@ public class CustomRowAdapter extends BaseAdapter {
             holder = (ViewHolder)convertView.getTag();
         }
 
-        holder.imgViewLogo.setImageResource(R.drawable.ic_launcher);
+//        holder.imgViewLogo.setImageResource(R.drawable.ic_launcher);
+
+        ImageLoader.getInstance().displayImage(feedRow.pictureMain, holder.imgViewLogo);
         holder.txtViewTitle.setText(feedRow.message);
 
         convertView.setOnClickListener(new View.OnClickListener() {

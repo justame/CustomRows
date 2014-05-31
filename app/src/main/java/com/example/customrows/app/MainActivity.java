@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.jeremyfeinstein.slidingmenu.lib.app.SlidingActivity;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -77,6 +78,12 @@ public class MainActivity extends SlidingActivity {
         ListView listView = (ListView)findViewById(R.id.listView);
         FeedHandler feedHandler = new FeedHandler(this,listView);
         feedHandler.execute(this);
+
+
+
+
+
+
 
     }
 }
