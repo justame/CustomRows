@@ -12,6 +12,8 @@ import android.widget.Toast;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
 
+import org.w3c.dom.Text;
+
 import javax.xml.transform.Result;
 
 
@@ -46,7 +48,8 @@ public class CustomRowAdapter extends BaseAdapter {
     public static class ViewHolder
     {
         ImageView imgViewLogo;
-        TextView txtViewTitle;
+        TextView message;
+        TextView price;
     }
 
     @Override
@@ -58,18 +61,16 @@ public class CustomRowAdapter extends BaseAdapter {
             convertView = inflater.inflate(R.layout.custom_row, null);
 
             holder.imgViewLogo = (ImageView)convertView.findViewById(R.id.imageView);
-            holder.txtViewTitle = (TextView)convertView.findViewById(R.id.textView);
-
+            holder.message = (TextView)convertView.findViewById(R.id.message);
+            holder.price = (TextView)convertView.findViewById(R.id.price);
 
             convertView.setTag(holder);
         }else {
             holder = (ViewHolder)convertView.getTag();
         }
-
-//        holder.imgViewLogo.setImageResource(R.drawable.ic_launcher);
-
         ImageLoader.getInstance().displayImage(feedRow.pictureMain, holder.imgViewLogo);
-        holder.txtViewTitle.setText(feedRow.message);
+        holder.message.setText(feedRow.message);
+        holder.price.setText(feedRow.price.toString());
 
         convertView.setOnClickListener(new View.OnClickListener() {
             @Override

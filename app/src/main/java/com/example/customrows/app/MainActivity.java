@@ -1,20 +1,24 @@
 package com.example.customrows.app;
 
 
+import android.content.Context;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.jeremyfeinstein.slidingmenu.lib.app.SlidingActivity;
 
 import java.util.ArrayList;
-import java.util.Observable;
 
 
 public class MainActivity extends SlidingActivity {
+
+    ListView feedListView;
+    CustomRowArrayAdapter customRowArrayAdapter = null;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -23,10 +27,19 @@ public class MainActivity extends SlidingActivity {
         setBehindContentView(R.layout.activity_menu);
 
         getSlidingMenu().setBehindOffset(100);
-        customRowArrayAdapter = new CustomRowArrayAdapter(getApplicationContext(),R.layout.custom_row, new ArrayList<CustomRowAdapter>());
 
+        feedListView = (ListView)findViewById(R.id.listView);
+        initFeeds();
+//        feedListView.setAdapter(customRowArrayAdapter);
+//        feedListView.setOnScrollListener(new EndlessScrollListener() {
+//            // Triggered only when new data needs to be appended to the list
+//            // Add whatever code is needed to append new items to your AdapterView
+//            @Override
+//            public void onLoadMore(int page, int totalItemsCount) {
+//
+//            }
+//        });
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -58,32 +71,67 @@ public class MainActivity extends SlidingActivity {
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
     }
-    CustomRowArrayAdapter customRowArrayAdapter = null;
 
-    public void getFeeds(View v){
-        final ListView listView = (ListView)findViewById(R.id.listView);
-        listView.setAdapter(customRowArrayAdapter);
+    public void initFeeds(){
+        final Context context =  getApplicationContext();
+        customRowArrayAdapter =  new CustomRowArrayAdapter(getApplicationContext(),R.layout.custom_row, new ArrayList<CustomRowAdapter>());
+        feedListView.setAdapter(customRowArrayAdapter);
 
-        final GetFeedsAsync getFeedsAsync = new GetFeedsAsync(this,listView, new GetFeedsAsync.GetFeedCallback(){
+        fetchFeeds(1, 10, new OnFetchFeedsListener() {
+            @Override
+            public void onFetchFeedsSuccess(ArrayList<FeedRow> feeds) {
+                applyFeeds(feeds);
+            }
+        });
+
+        feedListView.setOnScrollListener(new EndlessScrollListener() {
+            @Override
+            public void onLoadMore(int page, int totalItemsCount) {
+                int rangeEndIndex = (page * 10);
+                int rangeStartIndex = rangeEndIndex - 10 +1;
+                fetchFeeds(rangeStartIndex,rangeEndIndex, new OnFetchFeedsListener() {
+                    @Override
+                    public void onFetchFeedsSuccess(ArrayList<FeedRow> feeds) {
+                        applyFeeds(feeds);
+                    }
+                });
+            }
+        });
+    }
+
+    public void fetchFeeds(int startRangeIndex, int endRangeIndex , final OnFetchFeedsListener onFetchFeedsListener){
+        Log.i("fetchFeeds",Integer.toString(startRangeIndex) + "- " + Integer.toString(endRangeIndex) );
+
+        FetchFeedsAsync fetchFeedsAsync = new FetchFeedsAsync(startRangeIndex,endRangeIndex, new FetchFeedsAsync.FetchFeedCallback(){
             @Override
             public void onPostExecute(ArrayList<FeedRow> feedRows) {
-                ArrayList<CustomRowAdapter> listRows = new ArrayList<CustomRowAdapter>();
-                for (FeedRow feedRow : feedRows){
-                    CustomRowAdapter customRowAdapter = new CustomRowAdapter(getApplicationContext(),feedRow);
-                    customRowArrayAdapter.add(customRowAdapter);
-                }
-                customRowArrayAdapter.notifyDataSetChanged();
+                onFetchFeedsListener.onFetchFeedsSuccess(feedRows);
             }
         }
         );
-        getFeedsAsync.execute(this);
+        fetchFeedsAsync.execute();
+    }
 
-
-
-
-
-
-
+    public void applyFeeds(ArrayList<FeedRow> feeds){
+        final Context context = getApplicationContext();
+        for (FeedRow feedRow : feeds) {
+            CustomRowAdapter customRowAdapter = new CustomRowAdapter(context, feedRow);
+            customRowArrayAdapter.add(customRowAdapter);
+        }
+        customRowArrayAdapter.notifyDataSetChanged();
 
     }
+
+//    public void getFeeds(final OnFetchFeedsListener onFetchFeedsListener){
+//        FetchFeedsAsync fetchFeedsAsync = new FetchFeedsAsync(startRangeIndex,startRangeIndex + 10, new FetchFeedsAsync.FetchFeedCallback(){
+//            @Override
+//            public void onPostExecute(ArrayList<FeedRow> feedRows) {
+//                onFetchFeedsListener.onGetFeedsSuccess(feedRows);
+//            }
+//        }
+//        );
+//        fetchFeedsAsync.execute();
+//        startRangeIndex += 10;
+//
+//    }
 }

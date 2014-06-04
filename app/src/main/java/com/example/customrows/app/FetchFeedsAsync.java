@@ -1,68 +1,60 @@
 package com.example.customrows.app;
 
-import android.content.Context;
 import android.os.AsyncTask;
-import android.util.JsonReader;
-import android.widget.ListView;
-import android.widget.Toast;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
-import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
-import org.apache.http.util.EntityUtils;
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.JSONTokener;
 
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-public class GetFeedsAsync extends AsyncTask<Context,Integer, ArrayList<FeedRow>> {
-    Context context;
-    ListView listView;
-    GetFeedCallback getFeedCallback;
-
-    public interface GetFeedCallback{
+public class FetchFeedsAsync extends AsyncTask<Void,Void, ArrayList<FeedRow>> {
+    FetchFeedCallback fetchFeedCallback;
+    Integer rangeStart;
+    Integer rangeEnd;
+    public interface FetchFeedCallback {
         void onPostExecute(ArrayList<FeedRow> feedRows);
     }
 
-    public GetFeedsAsync(Context context, ListView listView, GetFeedCallback getFeedCallback){
-        this.context = context;
-        this.listView = listView;
-        this.getFeedCallback = getFeedCallback;
+    public FetchFeedsAsync(int rangeStart, int rangeEnd, FetchFeedCallback fetchFeedCallback){
+        this.fetchFeedCallback = fetchFeedCallback;
+        this.rangeStart = rangeStart;
+        this.rangeEnd = rangeEnd;
     }
+
     @Override
     protected void onPostExecute(ArrayList<FeedRow> feedRows) {
-        this.getFeedCallback.onPostExecute(feedRows);
+        this.fetchFeedCallback.onPostExecute(feedRows);
 
     }
 
     @Override
-    protected ArrayList<FeedRow> doInBackground(Context... contexts) {
+    protected ArrayList<FeedRow> doInBackground(Void... voids) {
         ArrayList<FeedRow> feedRows = null;
         try {
-            feedRows = getFeeds(contexts[0]);
+            feedRows = getFeeds();
         } catch (JSONException e) {
             e.printStackTrace();
         }
         return feedRows;
     }
 
-    private static ArrayList<FeedRow> getFeeds(Context context) throws JSONException {
+    private ArrayList<FeedRow> getFeeds() throws JSONException {
 
         // Create a new HttpClient and Post Header
         HttpClient httpclient = new DefaultHttpClient();
-        HttpPost httpPost = new HttpPost("http://ogbtech.biz/FeedFilter.General.Web/API/Mobile.aspx");
+        HttpPost httpPost = new HttpPost("http://Home.dns1.biz/FeedFilter.General.Web/API/Mobile.aspx");
 
         try {
             // Add your data
@@ -72,8 +64,8 @@ public class GetFeedsAsync extends AsyncTask<Context,Integer, ArrayList<FeedRow>
             nameValuePairs.add(new BasicNameValuePair("AppVersion", "0.1"));
             nameValuePairs.add(new BasicNameValuePair("PlatformID", "Android"));
             nameValuePairs.add(new BasicNameValuePair("DeviceId", "234sew42343243"));
-            nameValuePairs.add(new BasicNameValuePair("RangeStart", "1"));
-            nameValuePairs.add(new BasicNameValuePair("RangeEnd", "10"));
+            nameValuePairs.add(new BasicNameValuePair("RangeStart", this.rangeStart.toString()));
+            nameValuePairs.add(new BasicNameValuePair("RangeEnd", this.rangeEnd.toString()));
 
 
             httpPost.setEntity(new UrlEncodedFormEntity(nameValuePairs));

@@ -6,13 +6,6 @@
     android:orientation="vertical"
     tools:context="com.example.customrows.app.MainActivity">
 
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Get Feeds"
-        android:id="@+id/button"
-        android:onClick="getFeeds"/>
-
     <ListView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
