@@ -7,7 +7,9 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.jeremyfeinstein.slidingmenu.lib.app.SlidingActivity;
@@ -74,6 +76,7 @@ public class MainActivity extends SlidingActivity {
 
     public void initFeeds(){
         final Context context =  getApplicationContext();
+
         customRowArrayAdapter =  new CustomRowArrayAdapter(getApplicationContext(),R.layout.custom_row, new ArrayList<CustomRowAdapter>());
         feedListView.setAdapter(customRowArrayAdapter);
 
@@ -89,10 +92,18 @@ public class MainActivity extends SlidingActivity {
             public void onLoadMore(int page, int totalItemsCount) {
                 int rangeEndIndex = (page * 10);
                 int rangeStartIndex = rangeEndIndex - 10 +1;
-                fetchFeeds(rangeStartIndex,rangeEndIndex, new OnFetchFeedsListener() {
+//                TextView loader = new TextView(context);
+//                loader.setText("Loading");
+
+                Log.i("setOnScrollListener","position: " + feedListView.getLastVisiblePosition() + " totalItemsCount:" + Integer.toString(totalItemsCount) );
+
+//                feedListView.addFooterView(loader);
+                fetchFeeds(rangeStartIndex, rangeEndIndex, new OnFetchFeedsListener() {
                     @Override
                     public void onFetchFeedsSuccess(ArrayList<FeedRow> feeds) {
-                        applyFeeds(feeds);
+                        if (feeds != null) {
+                            applyFeeds(feeds);
+                        }
                     }
                 });
             }

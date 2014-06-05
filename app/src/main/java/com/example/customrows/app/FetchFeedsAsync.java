@@ -86,14 +86,17 @@ public class FetchFeedsAsync extends AsyncTask<Void,Void, ArrayList<FeedRow>> {
             JSONObject feedRaw;
             FeedRow feedrow;
             ArrayList<FeedRow> feedRows = new ArrayList<FeedRow>();
-            for(Iterator<String> iter = feeds.keys();iter.hasNext();) {
-                String key = iter.next();
-                feedRaw = feeds.getJSONObject(key);
-                feedrow = FeedRow.FromJSON(feedRaw);
-                if(feedrow != null) {
-                    feedRows.add(feedrow);
+            if(feeds != null){
+                for(Iterator<String> iter = feeds.keys();iter.hasNext();) {
+                    String key = iter.next();
+                    feedRaw = feeds.getJSONObject(key);
+                    feedrow = FeedRow.FromJSON(feedRaw);
+                    if(feedrow != null) {
+                        feedRows.add(feedrow);
+                    }
                 }
             }
+
             //.get("374").get("feedId").toString()
 
             return feedRows;

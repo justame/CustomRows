@@ -4,15 +4,17 @@
     android:layout_height="match_parent"
     android:clickable="true"
     android:orientation="vertical"
-    tools:context="com.example.customrows.app.MainActivity">
+    tools:context="com.example.customrows.app.MainActivity"
+    android:weightSum="1">
 
     <ListView
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="fill_parent"
         android:id="@+id/listView"
         android:layout_gravity="bottom"
         android:divider="#ff3253ff"
         android:dividerHeight="3dp"
         android:clipChildren="false"
-        android:footerDividersEnabled="false" />
+        android:footerDividersEnabled="false"
+        android:layout_weight="1.28" />
 </LinearLayout>
