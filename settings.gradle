@@ -1,1 +1,1 @@
-include ':libraries:SlidingMenu',':app', ':PullToRefresh'
+include 'app:libs:PullToRefresh', 'app:libs:SlidingMenu', ':app'

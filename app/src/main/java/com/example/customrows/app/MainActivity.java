@@ -7,10 +7,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.pulltorefresh.app2.PullToRefreshListView;
 import com.jeremyfeinstein.slidingmenu.lib.app.SlidingActivity;
@@ -19,7 +15,6 @@ import java.util.ArrayList;
 
 
 public class MainActivity extends SlidingActivity {
-
     PullToRefreshListView feedListView;
     CustomRowArrayAdapter customRowArrayAdapter = null;
 

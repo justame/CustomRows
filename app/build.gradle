@@ -23,7 +23,7 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile project(':libraries:SlidingMenu')
-    compile files('C:/Development/AndroidStudioProjects/MyApplication2/libraries/universal-image-loader-1.9.2-with-sources.jar')
-    compile project(':PullToRefresh')
+    compile project(':app:libs:SlidingMenu')
+    compile project(':app:libs:PullToRefresh')
+    compile files('libs/Parse-1.5.1.jar')
 }

@@ -51,11 +51,6 @@ public class FetchFeedsAsync extends AsyncTask<Void,Void, ArrayList<FeedRow>> {
     }
 
     private ArrayList<FeedRow> getFeeds() throws JSONException {
-        try {
-            Thread.sleep(5000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
         // Create a new HttpClient and Post Header
         HttpClient httpclient = new DefaultHttpClient();
         HttpPost httpPost = new HttpPost("http://Home.dns1.biz/FeedFilter.General.Web/API/Mobile.aspx");
