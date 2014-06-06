@@ -12,6 +12,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.pulltorefresh.app2.PullToRefreshListView;
 import com.jeremyfeinstein.slidingmenu.lib.app.SlidingActivity;
 
 import java.util.ArrayList;
@@ -19,7 +20,7 @@ import java.util.ArrayList;
 
 public class MainActivity extends SlidingActivity {
 
-    ListView feedListView;
+    PullToRefreshListView feedListView;
     CustomRowArrayAdapter customRowArrayAdapter = null;
 
     @Override
@@ -30,7 +31,7 @@ public class MainActivity extends SlidingActivity {
 
         getSlidingMenu().setBehindOffset(100);
 
-        feedListView = (ListView)findViewById(R.id.listView);
+        feedListView = (PullToRefreshListView)findViewById(R.id.listView);
         initFeeds();
 //        feedListView.setAdapter(customRowArrayAdapter);
 //        feedListView.setOnScrollListener(new EndlessScrollListener() {
@@ -104,6 +105,24 @@ public class MainActivity extends SlidingActivity {
                         if (feeds != null) {
                             applyFeeds(feeds);
                         }
+                    }
+                });
+            }
+        });
+
+        feedListView.setOnRefreshListener(new PullToRefreshListView.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+
+                fetchFeeds(1,10, new OnFetchFeedsListener() {
+                    @Override
+                    public void onFetchFeedsSuccess(ArrayList<FeedRow> feeds) {
+                        for(FeedRow feedRow: feeds){
+                            CustomRowAdapter customRowAdapter = new CustomRowAdapter(context, feedRow);
+                            customRowArrayAdapter.insert(customRowAdapter,0);
+                        }
+                        customRowArrayAdapter.notifyDataSetChanged();
+                        feedListView.onRefreshComplete();
                     }
                 });
             }
